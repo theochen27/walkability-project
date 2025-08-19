@@ -66,6 +66,19 @@ for var in variables:
 
 # plt.show()
 
-gdf = gpd.read_file("resources/cb_2022_us_county_20m.shp")
-df = pd.read_csv("data/merged_data.csv", dtype={"CountyFIPS": str})
-merged_gdf = gdf.merge(df, left_on="FIPS", right_on="CountyFIPS")
+
+
+# ---------------------------------------------------------------
+# Normal Distribution
+# ---------------------------------------------------------------
+
+new_variables = ['NatWalkInd', 'Diabetes', 'Obesity', 'Hypertension', 'CoronaryHeartDisease', 'HighCholesterol']
+for var in new_variables:
+    plt.figure(figsize=(10,6))
+    sns.histplot(merged[var], kde=True, color="skyblue")
+    plt.title(f"Distribution of {var} Across Counties", fontsize=18)
+    plt.xlabel(var)
+    plt.ylabel("Count")
+    plt.tight_layout()
+    plt.savefig(f"output/distribution_{var}.png", dpi=300)
+    plt.close()
